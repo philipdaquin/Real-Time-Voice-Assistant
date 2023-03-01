@@ -8,14 +8,13 @@
 
 
 
-import websockets
 import pyaudio
 import asyncio
 import base64
 import json
-import dotenv
 import openai
 import os
+import websockets
 from chat_helper import send_message
 
 
@@ -57,11 +56,11 @@ async def send_recv():
                     json_object = json.dumps({"audio_data": str(voice_data)})
                     await _ws.send(json_object)
                 except websockets.exceptions.ConnectionClosedError as e:
-                   print(e)
-                   assert e.code == 4008
-                   break
+                    print(e)
+                    assert e.code == 4008
+                    break
                 except Exception as e:
-                   assert False, "Not a websocket 4008 error"
+                    assert False, "Not a websocket 4008 error: " + str(e)
                 await asyncio.sleep(0.01)
 
 
@@ -74,19 +73,15 @@ async def send_recv():
 
                     if prompt and results["message_type"] == "FinalTranscript":
                         resp = send_message(prompt)
-                       
                         # print("Me:", prompt)
                         print("Bot:", resp)
                 except websockets.exceptions.ConnectionClosedError as e:
-                   print(e)
-                   assert e.code == 4008
-                   break
+                    print(e)
+                    assert e.code == 4008
+                    break
                 except Exception as e:
-                   assert False, "Not a websocket 4008 error"
+                    assert False, "Not a websocket 4008 error: " + str(e)
                 await asyncio.sleep(0.01)
-
                 
-        
         sendResult, receiveResult = await asyncio.gather(send(), receive())
-
 asyncio.run(send_recv())
