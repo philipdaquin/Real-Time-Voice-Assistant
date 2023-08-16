@@ -1,4 +1,5 @@
-# Real-Time-Voice-Assistant using Assembly AI 
+# Real-Time-Voice-Assistant Concept using Assembly AI 
 
-
+- Assembly Ai 
+- Open Ai 
 
